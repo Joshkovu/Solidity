@@ -37,7 +37,7 @@ contract ReentrancyVault {
         uint256 balance = userBalances[msg.sender];
         require(balance >= _amount, "Insufficient balance");
         // Vulnerable external call
-        (bool success, ) = msg.sender.call{value: _amount}("");
+        (bool success,) = msg.sender.call{value: _amount}("");
         require(success, "Transfer failed");
         // Update user balance after the external call (vulnerable to reentrancy)
         userBalances[msg.sender] = balance - _amount;
