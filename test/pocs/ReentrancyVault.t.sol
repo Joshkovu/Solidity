@@ -2,8 +2,8 @@
 pragma solidity ^0.8.22;
 
 import {Test} from "forge-std/Test.sol";
-import {ReentrancyVault} from "../vulnerable/ReentrancyVault.sol";
-import {ReentrancyAttacker} from "../attackers/ReentrancyAttacker.sol";
+import {ReentrancyVault} from "../../src/vulnerable/ReentrancyVault.sol";
+import {ReentrancyAttacker} from "../../src/attackers/ReentrancyAttacker.sol";
 
 /**
  * PoC:
@@ -44,7 +44,7 @@ contract Test_ReentrancyVault is Test {
 
         // Attacker deposits 1 ETH and withdraws 1 ETH repeatedly via reentrancy
         vm.prank(attackerEOA);
-        attacker.attack{value: 1 ether}(1 ether);
+        attacker.attack{value: 1 ether}();
 
         uint256 vaultEnd = address(vault).balance;
 
