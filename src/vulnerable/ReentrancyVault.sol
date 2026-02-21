@@ -25,7 +25,7 @@ contract ReentrancyVault {
     event Withdraw(address indexed user, uint256 amount);
 
     function deposit() external payable {
-        if (msg.value > 0) {
+        if (msg.value < 0) {
             revert ReentrancyVault__DepositMustBeGreaterThanZero();
         }
         userBalances[msg.sender] += msg.value;
