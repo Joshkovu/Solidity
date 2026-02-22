@@ -23,10 +23,7 @@ contract SignatureReplay {
     event Claimed(address indexed user, uint256 amount, uint256 newTotal);
 
     constructor(address trustedSigner) {
-        require(
-            trustedSigner != address(0),
-            "Trusted signer cannot be zero address"
-        );
+        require(trustedSigner != address(0), "Trusted signer cannot be zero address");
         I_SIGNER = trustedSigner;
     }
 
@@ -51,21 +48,11 @@ contract SignatureReplay {
         emit Claimed(msg.sender, amount, claimedTotal[msg.sender]);
     }
 
-    function _toEthSignedMessageHash(
-        bytes32 messageHash
-    ) internal pure returns (bytes32) {
-        return
-            keccak256(
-                abi.encodePacked(
-                    "\x19Ethereum Signed Message:\n32",
-                    messageHash
-                )
-            );
+    function _toEthSignedMessageHash(bytes32 messageHash) internal pure returns (bytes32) {
+        return keccak256(abi.encodePacked("\x19Ethereum Signed Message:\n32", messageHash));
     }
 
-    function splitSignature(
-        bytes memory sig
-    ) internal pure returns (bytes32 r, bytes32 s, uint8 v) {
+    function splitSignature(bytes memory sig) internal pure returns (bytes32 r, bytes32 s, uint8 v) {
         require(sig.length == 65, "Invalid signature length");
         assembly {
             r := mload(add(sig, 32))

@@ -5,12 +5,11 @@ pragma solidity ^0.8.20;
  * @title Precompiles - Polkadot Hub EVM Precompile Addresses
  * @author Joash Kuteesa
  * @notice EXPECTED: auditor should detect usage of precompiles and flag unsafe patterns in unsafe contracts.
- @dev SYSTEM_PRECOMPILE is Polkadot-specific. Standard EVM precompiles (1..9) included for reference.
+ *  @dev SYSTEM_PRECOMPILE is Polkadot-specific. Standard EVM precompiles (1..9) included for reference.
  */
 library Precompiles {
     // Polkadot System Precompile (Polkadot Hub EVM)
-    address constant SYSTEM_PRECOMPILE =
-        0x0000000000000000000000000000000000000900;
+    address constant SYSTEM_PRECOMPILE = 0x0000000000000000000000000000000000000900;
 
     // Standard EVM precompiles (for reference)
     address constant EC_RECOVER = 0x0000000000000000000000000000000000000001;

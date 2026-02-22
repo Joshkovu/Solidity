@@ -57,7 +57,7 @@ contract AccessControlBroken {
 
         uint256 bal = address(this).balance;
         require(bal > 0, "empty");
-        (bool ok, ) = to.call{value: bal}("");
+        (bool ok,) = to.call{value: bal}("");
         require(ok, "transfer failed");
 
         emit Withdrawn(to, bal);

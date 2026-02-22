@@ -20,14 +20,9 @@ contract PrecompileCallerSafe {
 
     function getVersion() external view returns (string memory) {
         // Optionally gate by chainId (configurable for local/fork tests)
-        require(
-            expectedChainId == 0 || block.chainid == expectedChainId,
-            "Wrong chain"
-        );
+        require(expectedChainId == 0 || block.chainid == expectedChainId, "Wrong chain");
 
-        (bool success, bytes memory data) = systemPrecompile.staticcall(
-            abi.encodeWithSignature("version()")
-        );
+        (bool success, bytes memory data) = systemPrecompile.staticcall(abi.encodeWithSignature("version()"));
         require(success, "Precompile call failed");
         require(data.length >= 32, "Invalid return data");
         return abi.decode(data, (string));

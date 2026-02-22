@@ -32,24 +32,14 @@ contract Test_SignatureReplay is Test {
 
     function test_SignatureReplay() public {
         uint256 amount = 100;
-        bytes32 messageHash = keccak256(
-            abi.encodePacked(address(this), amount)
-        );
-        bytes32 ethSignedMessageHash = keccak256(
-            abi.encodePacked("\x19Ethereum Signed Message:\n32", messageHash)
-        );
-        (uint8 v, bytes32 r, bytes32 s) = vm.sign(
-            signerPk,
-            ethSignedMessageHash
-        );
+        bytes32 messageHash = keccak256(abi.encodePacked(address(this), amount));
+        bytes32 ethSignedMessageHash = keccak256(abi.encodePacked("\x19Ethereum Signed Message:\n32", messageHash));
+        (uint8 v, bytes32 r, bytes32 s) = vm.sign(signerPk, ethSignedMessageHash);
         bytes memory signature = abi.encodePacked(r, s, v);
 
         // First claim should succeed
         target.claim(amount, signature);
-        console.log(
-            "Claimed total after first claim:",
-            target.claimedTotal(address(this))
-        );
+        console.log("Claimed total after first claim:", target.claimedTotal(address(this)));
         console.log("Expected claimed total after first claim:", amount);
         assertEq(target.claimedTotal(address(this)), amount);
 

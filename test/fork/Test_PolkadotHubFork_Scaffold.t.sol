@@ -35,9 +35,7 @@ contract Test_PolkadotHubFork_Scaffold is Test {
         try unsafe.getVersion() returns (string memory version) {
             emit log_string(version);
         } catch {
-            emit log(
-                "Unsafe precompile call reverted (expected on some forks)"
-            );
+            emit log("Unsafe precompile call reverted (expected on some forks)");
         }
     }
 }
