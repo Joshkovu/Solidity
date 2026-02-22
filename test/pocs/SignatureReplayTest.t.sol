@@ -48,7 +48,7 @@ contract Test_SignatureReplay is Test {
         target.claim(amount, signature);
         console.log(
             "Claimed total after first claim:",
-            target.claimedTotal(user)
+            target.claimedTotal(address(this))
         );
         console.log("Expected claimed total after first claim:", amount);
         assertEq(target.claimedTotal(address(this)), amount);
